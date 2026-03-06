@@ -1,0 +1,17 @@
+{
+  "name": "lyricon",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "storybook": "pnpm --filter @lyricon/storybook dev",
+    "storybook:build": "pnpm --filter @lyricon/storybook build"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}

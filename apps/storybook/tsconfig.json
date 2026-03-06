@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@lyricon/ui": ["../../packages/ui/src"],
+      "@lyricon/styles": ["../../packages/styles/src"]
+    }
+  },
+  "include": [".storybook", "stories"]
+}

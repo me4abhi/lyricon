@@ -1,0 +1,24 @@
+{
+  "name": "@lyricon/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "lint": "echo lint"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@lyricon/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "storybook": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "vite": "^6.0.3",
+    "typescript": "^5.7.2"
+  }
+}
