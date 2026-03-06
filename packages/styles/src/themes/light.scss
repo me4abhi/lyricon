@@ -1,0 +1,8 @@
+// =============================================================================
+// LIGHT THEME
+// =============================================================================
+// Defines the default palette values (light mode). These are applied to :root.
+// Consumer apps get this by default; use data-theme="dark" for dark mode.
+// =============================================================================
+
+@forward '../tokens/palette';

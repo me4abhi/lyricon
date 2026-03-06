@@ -1,0 +1,82 @@
+// =============================================================================
+// SEMANTIC COLOR TOKENS
+// =============================================================================
+// These tokens map palette tokens to meaning. Components must ONLY use these
+// semantic tokens (e.g. var(--color-primary), var(--color-bg)). Never use
+// palette tokens (--gray-9, --primary-6) or raw hex values in components.
+// =============================================================================
+
+:root {
+  // ---------------------------------------------------------------------------
+  // Background
+  // ---------------------------------------------------------------------------
+  --color-bg: var(--gray-1);
+  --color-bg-subtle: var(--gray-2);
+  --color-bg-muted: var(--gray-3);
+  --color-bg-elevated: var(--gray-1);
+  --color-bg-overlay: var(--gray-12);
+
+  // ---------------------------------------------------------------------------
+  // Text
+  // ---------------------------------------------------------------------------
+  --color-text: var(--gray-12);
+  --color-text-muted: var(--gray-7);
+  --color-text-subtle: var(--gray-6);
+  --color-text-inverse: var(--gray-1);
+  --color-text-link: var(--primary-7);
+
+  // ---------------------------------------------------------------------------
+  // Border
+  // ---------------------------------------------------------------------------
+  --color-border: var(--gray-4);
+  --color-border-muted: var(--gray-3);
+  --color-border-subtle: var(--gray-2);
+  --color-border-strong: var(--gray-6);
+  --color-border-focus: var(--primary-6);
+
+  // ---------------------------------------------------------------------------
+  // Primary
+  // ---------------------------------------------------------------------------
+  --color-primary: var(--primary-6);
+  --color-primary-hover: var(--primary-7);
+  --color-primary-active: var(--primary-8);
+  --color-primary-subtle: var(--primary-2);
+  --color-primary-foreground: var(--primary-12);
+
+  // ---------------------------------------------------------------------------
+  // Secondary
+  // ---------------------------------------------------------------------------
+  --color-secondary: var(--secondary-6);
+  --color-secondary-hover: var(--secondary-7);
+  --color-secondary-active: var(--secondary-8);
+  --color-secondary-foreground: var(--gray-1);
+
+  // ---------------------------------------------------------------------------
+  // State: Success
+  // ---------------------------------------------------------------------------
+  --color-success: var(--success-6);
+  --color-success-subtle: var(--success-2);
+  --color-success-foreground: var(--success-12);
+
+  // ---------------------------------------------------------------------------
+  // State: Warning
+  // ---------------------------------------------------------------------------
+  --color-warning: var(--warning-6);
+  --color-warning-subtle: var(--warning-2);
+  --color-warning-foreground: var(--warning-12);
+
+  // ---------------------------------------------------------------------------
+  // State: Danger
+  // ---------------------------------------------------------------------------
+  --color-danger: var(--danger-6);
+  --color-danger-subtle: var(--danger-2);
+  --color-danger-foreground: var(--danger-12);
+
+  // ---------------------------------------------------------------------------
+  // Interaction
+  // ---------------------------------------------------------------------------
+  --color-focus-ring: var(--primary-5);
+  --color-selection: var(--primary-3);
+  --color-disabled: var(--gray-4);
+  --color-backdrop: rgba(0, 0, 0, 0.5);
+}

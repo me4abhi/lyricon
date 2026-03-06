@@ -1,0 +1,118 @@
+/* Button – design system tokens only. No hardcoded colors, spacing, or typography. */
+
+.lyricon-button {
+  /* Layout & spacing */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--space-9);
+
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-normal);
+
+  /* Shape */
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+
+  /* Reset */
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Focus: use semantic focus ring */
+.lyricon-button:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Disabled */
+.lyricon-button:disabled {
+  cursor: not-allowed;
+  background: var(--color-bg-muted);
+  color: var(--color-disabled);
+  border-color: var(--color-border-subtle);
+}
+
+/* ---------- Variant: primary ---------- */
+.lyricon-button--primary {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: transparent;
+}
+
+.lyricon-button--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.lyricon-button--primary:active:not(:disabled) {
+  background: var(--color-primary-active);
+}
+
+/* ---------- Variant: secondary ---------- */
+.lyricon-button--secondary {
+  background: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+  border-color: transparent;
+}
+
+.lyricon-button--secondary:hover:not(:disabled) {
+  background: var(--color-secondary-hover);
+}
+
+.lyricon-button--secondary:active:not(:disabled) {
+  background: var(--color-secondary-active);
+}
+
+/* ---------- Variant: outline ---------- */
+.lyricon-button--outline {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.lyricon-button--outline:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-strong);
+}
+
+.lyricon-button--outline:active:not(:disabled) {
+  background: var(--color-bg-muted);
+}
+
+/* ---------- Variant: subtle (ghost) ---------- */
+.lyricon-button--subtle {
+  background: transparent;
+  color: var(--color-text);
+  border-color: transparent;
+}
+
+.lyricon-button--subtle:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+}
+
+.lyricon-button--subtle:active:not(:disabled) {
+  background: var(--color-bg-muted);
+}
+
+/* ---------- Variant: danger ---------- */
+.lyricon-button--danger {
+  background: var(--color-danger);
+  color: var(--color-danger-foreground);
+  border-color: transparent;
+}
+
+.lyricon-button--danger:hover:not(:disabled),
+.lyricon-button--danger:active:not(:disabled) {
+  background: var(--color-danger);
+  opacity: 0.9;
+}
+
+.lyricon-button--danger:active:not(:disabled) {
+  opacity: 0.85;
+}

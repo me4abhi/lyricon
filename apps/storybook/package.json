@@ -10,9 +10,11 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@lyricon/ui": "workspace:*"
+    "@lyricon/ui": "workspace:*",
+    "@lyricon/styles": "workspace:*"
   },
   "devDependencies": {
+    "sass-embedded": "^1.81.0",
     "storybook": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",

@@ -1,0 +1,24 @@
+// =============================================================================
+// DESIGN SYSTEM — Token-driven styles
+// =============================================================================
+// Import this file in your app to get all design tokens and theme support.
+// Use semantic tokens only in components: var(--color-primary), var(--space-4),
+// var(--text-sm). Never use palette tokens (--gray-9) or hardcoded values.
+//
+// Theming: default is light. Set data-theme="dark" on <html> for dark mode.
+// Override any token in your app by redefining the variable in a higher-
+// specificity selector (e.g. :root or [data-theme="custom"]).
+// =============================================================================
+
+// Default (light) palette and theme
+@forward 'themes/light';
+
+// Semantic and utility tokens (depend on palette)
+@forward 'tokens/colors.semantic';
+@forward 'tokens/spacing';
+@forward 'tokens/radius';
+@forward 'tokens/typography';
+@forward 'tokens/elevation';
+
+// Dark theme overrides (when [data-theme="dark"] is set)
+@forward 'themes/dark';

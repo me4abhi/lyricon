@@ -1,0 +1,95 @@
+// =============================================================================
+// PALETTE TOKENS (Primitive colors)
+// =============================================================================
+// Raw color values on a 1–12 scale. These are the building blocks for semantic
+// tokens. Components must NEVER use palette tokens directly—only semantic
+// tokens (e.g. --color-primary, --color-bg). Palette values are overridden by
+// themes (light/dark). Default values below are for light mode; dark theme
+// overrides in themes/dark.scss.
+// =============================================================================
+
+:root {
+  // Gray scale (neutral): 1 = lightest, 12 = darkest
+  --gray-1: #fafafa;
+  --gray-2: #f4f4f5;
+  --gray-3: #e4e4e7;
+  --gray-4: #d4d4d8;
+  --gray-5: #a1a1aa;
+  --gray-6: #71717a;
+  --gray-7: #52525b;
+  --gray-8: #3f3f46;
+  --gray-9: #27272a;
+  --gray-10: #18181b;
+  --gray-11: #0c0c0e;
+  --gray-12: #050506;
+
+  // Primary (brand/accent): 1 = lightest, 12 = darkest
+  --primary-1: #eef2ff;
+  --primary-2: #e0e7ff;
+  --primary-3: #c7d2fe;
+  --primary-4: #a5b4fc;
+  --primary-5: #818cf8;
+  --primary-6: #6366f1;
+  --primary-7: #4f46e5;
+  --primary-8: #4338ca;
+  --primary-9: #3730a3;
+  --primary-10: #312e81;
+  --primary-11: #1e1b4b;
+  --primary-12: #0f0d24;
+
+  // Secondary (secondary accent)
+  --secondary-1: #fdf2f8;
+  --secondary-2: #fce7f3;
+  --secondary-3: #fbcfe8;
+  --secondary-4: #f9a8d4;
+  --secondary-5: #f472b6;
+  --secondary-6: #ec4899;
+  --secondary-7: #db2777;
+  --secondary-8: #be185d;
+  --secondary-9: #9d174d;
+  --secondary-10: #831843;
+  --secondary-11: #500724;
+  --secondary-12: #2d0a18;
+
+  // Success
+  --success-1: #ecfdf5;
+  --success-2: #d1fae5;
+  --success-3: #a7f3d0;
+  --success-4: #6ee7b7;
+  --success-5: #34d399;
+  --success-6: #10b981;
+  --success-7: #059669;
+  --success-8: #047857;
+  --success-9: #065f46;
+  --success-10: #064e3b;
+  --success-11: #022c22;
+  --success-12: #011b14;
+
+  // Warning
+  --warning-1: #fffbeb;
+  --warning-2: #fef3c7;
+  --warning-3: #fde68a;
+  --warning-4: #fcd34d;
+  --warning-5: #fbbf24;
+  --warning-6: #f59e0b;
+  --warning-7: #d97706;
+  --warning-8: #b45309;
+  --warning-9: #92400e;
+  --warning-10: #78350f;
+  --warning-11: #451a03;
+  --warning-12: #1c0a00;
+
+  // Danger
+  --danger-1: #fef2f2;
+  --danger-2: #fee2e2;
+  --danger-3: #fecaca;
+  --danger-4: #fca5a5;
+  --danger-5: #f87171;
+  --danger-6: #ef4444;
+  --danger-7: #dc2626;
+  --danger-8: #b91c1c;
+  --danger-9: #991b1b;
+  --danger-10: #7f1d1d;
+  --danger-11: #450a0a;
+  --danger-12: #1c0303;
+}

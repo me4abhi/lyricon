@@ -1,0 +1,93 @@
+// =============================================================================
+// DARK THEME
+// =============================================================================
+// Overrides palette tokens when [data-theme="dark"] is set on a root element.
+// Semantic tokens automatically use these values. Consumer apps enable dark
+// mode by setting data-theme="dark" on <html> or a wrapper.
+// =============================================================================
+
+[data-theme="dark"] {
+  // Gray scale (inverted for dark: 1 = darkest, 12 = lightest in context)
+  --gray-1: #0c0c0e;
+  --gray-2: #18181b;
+  --gray-3: #27272a;
+  --gray-4: #3f3f46;
+  --gray-5: #52525b;
+  --gray-6: #71717a;
+  --gray-7: #a1a1aa;
+  --gray-8: #d4d4d8;
+  --gray-9: #e4e4e7;
+  --gray-10: #f4f4f5;
+  --gray-11: #fafafa;
+  --gray-12: #ffffff;
+
+  // Primary (slightly adjusted for dark backgrounds)
+  --primary-1: #0f0d24;
+  --primary-2: #1e1b4b;
+  --primary-3: #312e81;
+  --primary-4: #3730a3;
+  --primary-5: #4338ca;
+  --primary-6: #4f46e5;
+  --primary-7: #6366f1;
+  --primary-8: #818cf8;
+  --primary-9: #a5b4fc;
+  --primary-10: #c7d2fe;
+  --primary-11: #e0e7ff;
+  --primary-12: #eef2ff;
+
+  // Secondary
+  --secondary-1: #2d0a18;
+  --secondary-2: #500724;
+  --secondary-3: #831843;
+  --secondary-4: #9d174d;
+  --secondary-5: #be185d;
+  --secondary-6: #db2777;
+  --secondary-7: #ec4899;
+  --secondary-8: #f472b6;
+  --secondary-9: #f9a8d4;
+  --secondary-10: #fbcfe8;
+  --secondary-11: #fce7f3;
+  --secondary-12: #fdf2f8;
+
+  // Success
+  --success-1: #011b14;
+  --success-2: #022c22;
+  --success-3: #064e3b;
+  --success-4: #065f46;
+  --success-5: #047857;
+  --success-6: #059669;
+  --success-7: #10b981;
+  --success-8: #34d399;
+  --success-9: #6ee7b7;
+  --success-10: #a7f3d0;
+  --success-11: #d1fae5;
+  --success-12: #ecfdf5;
+
+  // Warning
+  --warning-1: #1c0a00;
+  --warning-2: #451a03;
+  --warning-3: #78350f;
+  --warning-4: #92400e;
+  --warning-5: #b45309;
+  --warning-6: #d97706;
+  --warning-7: #f59e0b;
+  --warning-8: #fbbf24;
+  --warning-9: #fcd34d;
+  --warning-10: #fde68a;
+  --warning-11: #fef3c7;
+  --warning-12: #fffbeb;
+
+  // Danger
+  --danger-1: #1c0303;
+  --danger-2: #450a0a;
+  --danger-3: #7f1d1d;
+  --danger-4: #991b1b;
+  --danger-5: #b91c1c;
+  --danger-6: #dc2626;
+  --danger-7: #ef4444;
+  --danger-8: #f87171;
+  --danger-9: #fca5a5;
+  --danger-10: #fecaca;
+  --danger-11: #fee2e2;
+  --danger-12: #fef2f2;
+}

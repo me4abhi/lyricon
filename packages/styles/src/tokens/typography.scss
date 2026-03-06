@@ -1,0 +1,43 @@
+// =============================================================================
+// TYPOGRAPHY TOKENS
+// =============================================================================
+// Font families, sizes, weights, and line heights. Components must use
+// var(--text-sm), var(--font-sans), etc.—never hardcoded font values.
+// =============================================================================
+
+:root {
+  // ---------------------------------------------------------------------------
+  // Font families
+  // ---------------------------------------------------------------------------
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  // ---------------------------------------------------------------------------
+  // Font sizes
+  // ---------------------------------------------------------------------------
+  --text-xs: 0.75rem;   // 12px
+  --text-sm: 0.875rem;  // 14px
+  --text-md: 1rem;      // 16px
+  --text-lg: 1.125rem;  // 18px
+  --text-xl: 1.25rem;   // 20px
+  --text-2xl: 1.5rem;   // 24px
+  --text-3xl: 1.875rem; // 30px
+  --text-4xl: 2.25rem;  // 36px
+
+  // ---------------------------------------------------------------------------
+  // Font weights
+  // ---------------------------------------------------------------------------
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  // ---------------------------------------------------------------------------
+  // Line heights
+  // ---------------------------------------------------------------------------
+  --line-tight: 1.25;
+  --line-normal: 1.5;
+  --line-loose: 1.75;
+}

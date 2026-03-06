@@ -1,0 +1,20 @@
+// =============================================================================
+// SPACING TOKENS
+// =============================================================================
+// 4px-based scale. Components must use these tokens (e.g. var(--space-4))
+// instead of hardcoded px values for margin, padding, and gap.
+// =============================================================================
+
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+}
