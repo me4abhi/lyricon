@@ -1,0 +1,41 @@
+---
+description: Hybrid override pattern for @lyricon/ui components (className + classNames)
+globs: packages/ui/**/*.tsx
+alwaysApply: false
+---
+
+# UI Component Override Pattern (Hybrid)
+
+All components in `packages/ui` must support the **hybrid** override strategy.
+
+**Reference components:** Button (single slot: root), Badge (slots: root, icon, label). See `packages/ui/src/components/atoms/` for implementation.
+
+## API
+
+- **`className`** (string): Root-level override. Use for ~80–90% of cases (colors, spacing, shadows). Merged onto the root element.
+- **`classNames`** (object): Slot-level overrides when precision is needed. Keys = slot names (e.g. `root`, `label`, `icon`). Each value is a string merged onto that element.
+
+## Implementation
+
+1. Accept both `className?: string` and `classNames?: ComponentClassNames<SlotNames>` (import `cn` and `ComponentClassNames` from `../../utils/cn` or the package root).
+2. Root element: merge with `cn("base-class", variantClass, className, classNames?.root)`. Order: base, variant, className, classNames.root.
+3. Internal elements: apply `classNames?.<slot>` via `cn("internal-base", classNames?.slot)` so consumer classes merge with internal styles.
+4. Export a `*ClassNames` type (e.g. `BadgeClassNames = ComponentClassNames<"root" | "icon" | "label">`) from the component.
+
+## Consumer guidelines (document in Storybook / README)
+
+- Use **className** first.
+- Reach for **classNames** only when you need to target a specific slot.
+- Prefer **CSS variables** for colors and themes.
+- Avoid relying on internal DOM structure; use the documented slots only.
+
+## Example: multi-slot (Badge)
+
+```tsx
+export type BadgeClassNames = ComponentClassNames<"root" | "icon" | "label">;
+
+<span className={cn("lyricon-badge", `lyricon-badge--${variant}`, className, classNames?.root)}>
+  {icon && <span className={cn("lyricon-badge__icon", classNames?.icon)}>{icon}</span>}
+  <span className={cn("lyricon-badge__label", classNames?.label)}>{children}</span>
+</span>
+```

@@ -1,0 +1,54 @@
+/* Badge – design system tokens only. */
+
+.lyricon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-tight);
+}
+
+.lyricon-badge__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lyricon-badge__label {
+  /* Allow consumer to override label typography via classNames.label */
+}
+
+/* ---------- Variant: default ---------- */
+.lyricon-badge--default {
+  background: var(--color-bg-muted);
+  color: var(--color-text);
+  border-color: var(--color-border-subtle);
+}
+
+/* ---------- Variant: success ---------- */
+.lyricon-badge--success {
+  background: var(--color-success-subtle);
+  color: var(--color-success-foreground);
+  border-color: transparent;
+}
+
+/* ---------- Variant: warning ---------- */
+.lyricon-badge--warning {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning-foreground);
+  border-color: transparent;
+}
+
+/* ---------- Variant: danger ---------- */
+.lyricon-badge--danger {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger-foreground);
+  border-color: transparent;
+}
