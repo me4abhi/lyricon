@@ -1,0 +1,136 @@
+# UI package: npm publishing readiness changes
+
+This document describes the changes made to `@lyricon/ui` to prepare it for npm publishing.
+
+---
+
+## 1. package.json
+
+### Entry points and exports
+
+**Before:** The package pointed at TypeScript source, which is not suitable for published packages.
+
+```json
+"main": "src/index.ts",
+"types": "src/index.ts",
+"exports": {
+  ".": "./src/index.ts",
+  "./atoms": "./src/atoms.ts",
+  "./molecules": "./src/molecules.ts",
+  "./organisms": "./src/organisms.ts"
+}
+```
+
+**After:** Entry points and exports target the built output in `dist/` with conditional exports for types and ESM.
+
+- **`main`**, **`module`**, **`types`** — Point to `./dist/index.js` and `./dist/index.d.ts` so Node and bundlers resolve the built files.
+- **`type`** — Set to `"module"` so the package is treated as ESM.
+- **`exports`** — Each key (`.`, `./atoms`, `./molecules`, `./organisms`) now has:
+  - **`types`** — Path to the `.d.ts` file for TypeScript.
+  - **`import`** — ESM entry (e.g. `./dist/index.js`).
+  - **`default`** — Fallback for older resolvers.
+
+Consumers can use:
+
+- `import { Button } from "@lyricon/ui"` (barrel)
+- `import { Button } from "@lyricon/ui/atoms"` (tree-shakable subpath)
+
+### Publishing surface
+
+- **`files`** — Set to `["dist"]` so only the `dist/` directory is published. Source, config, and tooling are not included.
+- **`style`** — Set to `"dist/index.css"` so tooling and docs can discover the default component stylesheet.
+
+### Tree-shaking
+
+- **`sideEffects`** — Set to `["**/*.css"]`. Only CSS is marked as side-effectful so bundlers can tree-shake unused JS.
+
+### Build script
+
+- **`scripts.build`** — Runs: (1) `node scripts/build-styles.js` — compiles `@lyricon/styles` SCSS to a temp tokens CSS file; (2) `tsup` — builds JS and component CSS; (3) `node scripts/concat-css.js` — concatenates tokens + component CSS into `dist/index.css`. So `pnpm build` produces a single CSS bundle (tokens + components) for consumers.
+
+### Metadata
+
+- **`description`** — Added: `"Lyricon design system UI components"`.
+
+### Dependencies
+
+- **`devDependencies`** — **`tsup`** (build), **`sass`** (compile styles SCSS at build time), **`@lyricon/styles`** (workspace, source of truth for tokens; used only at build time). `react` and `@types/*` remain for local development and type-checking; they are not bundled. The published package has no runtime dependency on `@lyricon/styles`; tokens are bundled into `dist/index.css`.
+
+**Note:** Before publishing, set `"private": false` (or remove `private`) and set a real `version` (e.g. `"1.0.0"`).
+
+---
+
+## 2. Build setup (tsup)
+
+A new **`tsup.config.ts`** was added at the package root to drive the build.
+
+### Entry points
+
+Four entry points are built so the same structure as the source barrel and subpaths is preserved:
+
+- **`index`** → `src/index.ts` (main barrel: utils, atoms, molecules, organisms)
+- **`atoms`** → `src/atoms.ts`
+- **`molecules`** → `src/molecules.ts`
+- **`organisms`** → `src/organisms.ts`
+
+This produces `dist/index.js`, `dist/atoms.js`, `dist/molecules.js`, `dist/organisms.js` plus shared chunks, enabling tree-shakeable imports from `@lyricon/ui/atoms`, etc.
+
+### Output format and directory
+
+- **`format`** — `["esm"]` only; the package is ESM-only.
+- **`outDir`** — `"dist"`.
+- **`clean`** — `true` so each build starts from a clean `dist/`.
+
+### Type definitions
+
+- **`dts`** — `true` so tsup generates `.d.ts` (and declaration maps) for all entry points. Types are emitted next to the JS (e.g. `dist/index.d.ts`, `dist/atoms.d.ts`).
+
+### Source maps
+
+- **`sourcemap`** — `true` so `.js.map` files are emitted for debugging.
+
+### Externals (React not bundled)
+
+- **`external`** — `["react", "react-dom", "@lyricon/styles"]`.
+
+React and React DOM are not bundled; the built code contains `import ... from "react"` and `"react/jsx-runtime"`. Consumers must install `react` and `react-dom` (via peerDependencies). This avoids duplicate React instances and keeps the bundle size down. `@lyricon/styles` is external so the app controls the design tokens/theme.
+
+### CSS handling
+
+- **`esbuildOptions.loader`** — `".css": "css"` so imported `.css` files (e.g. from Button and Badge) are processed by esbuild and **extracted** to `.css` files in `dist/` (e.g. `dist/index.css`, `dist/atoms.css`), not inlined into JS.
+- **Tokens in main CSS** — Before tsup, `scripts/build-styles.js` compiles `@lyricon/styles` SCSS to a temp file; after tsup, `scripts/concat-css.js` concatenates that with `dist/index.css` and overwrites `dist/index.css`. So the main stylesheet includes both design tokens and component styles.
+
+Consumers need only **one** import: `import "@lyricon/ui/dist/index.css"` (or the `style` field). They do not need to install or load `@lyricon/styles` separately.
+
+### Extensions
+
+- **`outExtension`** — Returns `{ js: ".js" }` so output files use the `.js` extension explicitly.
+
+---
+
+## 3. What was not changed
+
+- **Source code** — No changes to `src/index.ts`, `src/atoms.ts`, `src/molecules.ts`, `src/organisms.ts`, or any component. Exports from `src/index.ts` were already correct.
+- **Components and tokens** — Button and Badge already use only semantic design tokens (e.g. `var(--color-primary)`, `var(--space-*)`) in their CSS; no changes made there.
+- **peerDependencies** — `react` and `react-dom` were already correctly listed as peerDependencies; only the build and package.json entry/export/files/sideEffects were updated.
+
+---
+
+## 4. Build output (after `pnpm build`)
+
+After running `pnpm --filter @lyricon/ui build`, `dist/` contains:
+
+- **JS:** `index.js`, `atoms.js`, `molecules.js`, `organisms.js`, and shared chunks (e.g. `chunk-*.js`).
+- **Types:** `index.d.ts`, `atoms.d.ts`, `molecules.d.ts`, `organisms.d.ts`, plus chunk `.d.ts` files.
+- **CSS:** `index.css` (design tokens + component styles in one file), plus `atoms.css` etc. for subpath entries.
+- **Maps:** `.js.map` (and optionally `.css.map`) for debugging.
+
+Only the `dist/` directory is published when using `files: ["dist"]`.
+
+---
+
+## 5. Checklist before publishing
+
+1. Set **`"private": false`** (or remove `private`) in `packages/ui/package.json`.
+2. Set a real **`version`** (e.g. `"1.0.0"`).
+3. Run **`pnpm --filter @lyricon/ui build`** and confirm `dist/` is up to date before each publish. Consumers do not need `@lyricon/styles`; tokens are bundled in `dist/index.css`.

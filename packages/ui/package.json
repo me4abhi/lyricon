@@ -38,16 +38,16 @@
   ],
   "scripts": {
     "dev": "echo dev",
-    "build": "tsup",
+    "build": "node scripts/build-styles.js && tsup && node scripts/concat-css.js",
+    "pack:local": "pnpm build && pnpm pack",
     "lint": "echo lint"
   },
-  "dependencies": {
-    "@lyricon/styles": "workspace:*"
-  },
   "devDependencies": {
+    "@lyricon/styles": "workspace:*",
     "react": "^19.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "sass": "^1.81.0",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {

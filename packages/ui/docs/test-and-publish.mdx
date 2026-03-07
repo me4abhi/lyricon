@@ -1,0 +1,184 @@
+# Test @lyricon/ui in another project, then publish
+
+Step-by-step: test the package locally in another app, then publish to npm if it works.
+
+---
+
+## Part 1: Test in another project
+
+### Step 1 — Build the UI package
+
+From the **lyricon repo root**:
+
+```bash
+pnpm --filter @lyricon/ui build
+```
+
+Confirm `packages/ui/dist/` exists and contains `.js`, `.d.ts`, and `.css` files.
+
+---
+
+### Step 2 — Create a tarball (simulate the published package)
+
+Still in the **lyricon repo**:
+
+```bash
+pnpm --filter @lyricon/ui pack:local
+```
+
+Or manually:
+
+```bash
+cd packages/ui && pnpm build && pnpm pack
+```
+
+This creates a file like **`lyricon-ui-0.0.0.tgz`** in `packages/ui/`. That tarball is exactly what would be uploaded to npm (only `dist/` and package.json, per `files`).
+
+**Optional:** Copy the tarball somewhere easy to remember, e.g.:
+
+```bash
+cp lyricon-ui-0.0.0.tgz /tmp/lyricon-ui-0.0.0.tgz
+```
+
+---
+
+### Step 3 — Use the tarball in your other project
+
+Open your **other project** (the one where you want to try the UI package).
+
+**3a. Install the package from the tarball**
+
+If the tarball is in `packages/ui/`:
+
+```bash
+pnpm add /absolute/path/to/lyricon/packages/ui/lyricon-ui-0.0.0.tgz
+```
+
+Example (replace with your path):
+
+```bash
+pnpm add /Users/me4abhi/Documents/projects/_march/lyricon/packages/ui/lyricon-ui-0.0.0.tgz
+```
+
+Or if you copied it to `/tmp`:
+
+```bash
+pnpm add /tmp/lyricon-ui-0.0.0.tgz
+```
+
+**3b. Install peer dependencies (if not already present)**
+
+The UI package expects React 18 or 19:
+
+```bash
+pnpm add react react-dom
+```
+
+You do **not** need to install `@lyricon/styles` for the default experience: design tokens are compiled into the UI package at build time and shipped in `dist/index.css`.
+
+---
+
+### Step 4 — Use the package in the other project
+
+**4a. Import components (and optionally types)**
+
+```tsx
+import { Button, Badge } from "@lyricon/ui";
+// or tree-shakeable:
+import { Button, Badge } from "@lyricon/ui/atoms";
+```
+
+**4b. Load the main CSS (tokens + components)**
+
+Import the package CSS once (e.g. in your root layout or `main.tsx`). This single file includes both design tokens and component styles:
+
+```tsx
+import "@lyricon/ui/dist/index.css";
+```
+
+**4c. Render and test**
+
+Use `<Button>`, `<Badge>`, etc. and verify:
+
+- No runtime errors.
+- Styles apply (tokens and components come from the one CSS import).
+- TypeScript types work (e.g. `ButtonProps`, `BadgeVariant`).
+
+---
+
+### Step 5 — Sanity checks in the other project
+
+- [ ] Dev server runs (`pnpm dev` or equivalent).
+- [ ] Production build succeeds (`pnpm build`).
+- [ ] No duplicate React warnings.
+- [ ] Components look correct (tokens, variants).
+
+If anything fails, fix the UI package (or styles), then run **Step 1 → Step 2** again and re-add the new tarball in the other project (`pnpm add /path/to/lyricon-ui-0.0.0.tgz` again to refresh).
+
+---
+
+## Part 2: Publish to npm (after testing succeeds)
+
+### Step 6 — Prepare for publishing
+
+In **lyricon repo**, in **`packages/ui/package.json`**:
+
+1. **Allow publishing:** set `"private": false` (or remove the `"private"` field).
+2. **Set a real version**, e.g. `"1.0.0"`.
+3. **(Optional)** The published UI package bundles design tokens in `dist/index.css`; consumers do not need to install `@lyricon/styles`. If you also publish `@lyricon/styles` for tokens-only use, set a version there; it is not required for React consumers of `@lyricon/ui`.
+
+---
+
+### Step 7 — Log in to npm (if needed)
+
+```bash
+npm login
+```
+
+Use your npm account; 2FA if enabled.
+
+---
+
+### Step 8 — Publish the package
+
+From the **lyricon repo root**:
+
+```bash
+pnpm --filter @lyricon/ui publish --no-git-checks
+```
+
+- **`--no-git-checks`** skips “clean git status” checks (remove if you want to enforce clean repo).
+- For scoped packages like `@lyricon/ui`, the first time you publish you may need to use **`--access public`** if the scope is not paid:
+
+  ```bash
+  pnpm --filter @lyricon/ui publish --access public --no-git-checks
+  ```
+
+Follow the prompts (version confirmation, etc.). After success, the package will be on npm and installable with:
+
+```bash
+pnpm add @lyricon/ui
+```
+
+---
+
+### Step 9 — (Optional) Publish @lyricon/styles
+
+Only if you want to offer design tokens as a separate package (e.g. for non-React or custom setups):
+
+1. In `packages/styles`, set `"private": false` and a version (e.g. `"1.0.0"`).
+2. Add a build step if styles need one (or ensure `files` includes the right paths).
+3. Run: `pnpm --filter @lyricon/styles publish --access public --no-git-checks`
+
+React consumers of `@lyricon/ui` do not need this; tokens are already included in the UI package.
+
+---
+
+## Quick reference
+
+| Goal | Command |
+|------|--------|
+| Build UI | `pnpm --filter @lyricon/ui build` |
+| Pack UI (create tarball) | `pnpm --filter @lyricon/ui pack:local` |
+| Install tarball in other project | `pnpm add /path/to/lyricon-ui-0.0.0.tgz` |
+| Publish UI to npm | `pnpm --filter @lyricon/ui publish --access public` |

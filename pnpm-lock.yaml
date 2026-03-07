@@ -62,13 +62,13 @@ importers:
 
   packages/ui:
     dependencies:
-      '@lyricon/styles':
-        specifier: workspace:*
-        version: link:../styles
       react-dom:
         specifier: ^18.0.0 || ^19.0.0
         version: 19.2.4(react@19.2.4)
     devDependencies:
+      '@lyricon/styles':
+        specifier: workspace:*
+        version: link:../styles
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.14
@@ -78,6 +78,9 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.2.4
+      sass:
+        specifier: ^1.81.0
+        version: 1.97.3
       tsup:
         specifier: ^8.3.5
         version: 8.5.1(postcss@8.5.8)(typescript@5.9.3)
@@ -3523,7 +3526,6 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.6
-    optional: true
 
   scheduler@0.27.0: {}
 
